@@ -12,9 +12,11 @@ const Wrapper = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <Header />
-      <MainSection />
+    <div style={{ minWidth: "230px", maxWidth: "550px", margin: "0 auto" }}>
+      <div className="todoapp">
+        <Header />
+        <MainSection />
+      </div>
     </div>
   );
 };

@@ -1,76 +1,68 @@
 import * as types from "../constants/ActionTypes";
 import * as AuthService from "../services/auth.service";
 
-export const register =
-  (...createUserdata) =>
-  (dispatch) => {
-    return AuthService.signup(...createUserdata).then(
-      (response) => {
-        dispatch({
-          type: types.REGISTER_SUCCESS,
-        });
+export const register = (email, password) => (dispatch) => {
+  return AuthService.signup(email, password).then(
+    (response) => {
+      dispatch({
+        type: types.REGISTER_SUCCESS,
+        payload: response,
+      });
 
-        dispatch({
-          type: types.SET_MESSAGE,
-          payload: response.data.message,
-        });
+      return Promise.resolve();
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
 
-        return Promise.resolve();
-      },
-      (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+      dispatch({
+        type: types.REGISTER_FAIL,
+      });
 
-        dispatch({
-          type: types.REGISTER_FAIL,
-        });
+      dispatch({
+        type: types.SET_MESSAGE,
+        payload: message,
+      });
 
-        dispatch({
-          type: types.SET_MESSAGE,
-          payload: message,
-        });
+      return Promise.reject();
+    }
+  );
+};
 
-        return Promise.reject();
-      }
-    );
-  };
+export const login = (email, password) => (dispatch) => {
+  return AuthService.signin(email, password).then(
+    (response) => {
+      dispatch({
+        type: types.LOGIN_SUCCESS,
+        payload: response,
+      });
+      return Promise.resolve(response);
+    },
+    (error) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
 
-export const login =
-  (...loginCredential) =>
-  (dispatch) => {
-    return AuthService.signin(...loginCredential).then(
-      (response) => {
-        dispatch({
-          type: types.LOGIN_SUCCESS,
-          payload: response,
-        });
-        return Promise.resolve(response);
-      },
-      (error) => {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+      dispatch({
+        type: types.LOGIN_FAIL,
+      });
 
-        dispatch({
-          type: types.LOGIN_FAIL,
-        });
+      dispatch({
+        type: types.SET_MESSAGE,
+        payload: message,
+      });
 
-        dispatch({
-          type: types.SET_MESSAGE,
-          payload: message,
-        });
-
-        return Promise.reject();
-      }
-    );
-  };
+      return Promise.reject();
+    }
+  );
+};
 
 export const logout = () => (dispatch) => {
   AuthService.signout();
@@ -78,6 +70,3 @@ export const logout = () => (dispatch) => {
     type: types.LOGOUT,
   });
 };
-
-
-

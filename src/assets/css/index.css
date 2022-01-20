@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  min-width: initial !important;
+  max-width: initial !important;
+}
+
+.logo-text {
+  width: 100%;
+  font-size: 100px;
+  font-weight: 200;
+  text-align: center;
+  color: #b83f45;
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+}
+
+.todo-list .view {
+  display: flex;
+  justify-content: space-between;
+}
+.todo-list .view button {
+  margin-right: 0.5rem;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+.ReactModal__Overlay {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: var(--chakra-colors-blackAlpha-600) !important;
+  z-index: var(--chakra-zIndices-modal);
+}
+
+.ReactModal__Content {
+  inset: initial !important;
+  max-width: var(--chakra-sizes-md);
+  width: 100%;
+  max-height: var(--chakra-sizes-md);
+  margin-top: 3.75rem;
+  margin-bottom: 3.75rem;
+}

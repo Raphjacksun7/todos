@@ -17,7 +17,7 @@ const Footer = (props) => {
   const { activeCount, completedCount, onClearCompleted } = props;
   const itemWord = activeCount === 1 ? "item" : "items";
   return (
-    <footer className="footer">
+    <footer className="footer" style={{ height: "42px" }}>
       <span className="todo-count">
         <strong>{activeCount || "No"}</strong> {itemWord} left
       </span>

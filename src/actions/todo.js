@@ -1,4 +1,5 @@
 import * as types from "../constants/ActionTypes";
+import { loadUID } from "../services/auth.service";
 import * as TodoService from "../services/todo.service";
 
 export const getTodos = () => (dispatch) => {
@@ -36,9 +37,17 @@ export const getTodos = () => (dispatch) => {
 export const addTodo = (text) => (dispatch) => {
   return TodoService.addTodo(text).then(
     (response) => {
+      console.log(response);
       dispatch({
         type: types.ADD_TODO_SUCCESS,
-        payload: { id: response.id, text, completed: false },
+        payload: {
+          id: response.id,
+          user_id: loadUID(),
+          text: text,
+          comment: "",
+          deadline: null,
+          completed: false,
+        },
       });
 
       dispatch({
@@ -70,12 +79,12 @@ export const addTodo = (text) => (dispatch) => {
   );
 };
 
-export const editTodo = (id, text) => (dispatch) => {
-  return TodoService.editTodo(id, text).then(
+export const editTodo = (updatedTodo) => (dispatch) => {
+  return TodoService.editTodo(updatedTodo).then(
     (response) => {
       dispatch({
         type: types.EDIT_TODO_SUCCESS,
-        payload: { id, text },
+        payload: updatedTodo,
       });
 
       dispatch({

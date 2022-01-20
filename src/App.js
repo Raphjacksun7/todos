@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import ProtectedRoute from "./routes/ProtectedRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 import { history } from "./utils/history";
+import "./assets/css/index.css";
+import Register from "./components/Register";
 
 const loading = <div className="pt-3 text-center">Loading...</div>;
 
 // Containers
-const Wrapper = React.lazy(() => import("./components/Wrapper"));
+const MainLayout = React.lazy(() => import("./layouts/MainLayout"));
 
 // Pages
 const Login = React.lazy(() => import("./components/Login"));
@@ -25,14 +27,24 @@ class App extends Component {
             }
           />
           <Route
-            path="/"
+            path="/register"
             element={
               <React.Suspense fallback={loading}>
-                <Wrapper />
+                <Register />
               </React.Suspense>
             }
           />
-          {/* <ProtectedRoute path="/" name="Home Page" element={MainContainer} /> */}
+          <Route exact path="/" element={<PrivateRoute />}>
+            <Route
+              exact
+              path="/"
+              element={
+                <React.Suspense fallback={loading}>
+                  <MainLayout />
+                </React.Suspense>
+              }
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     );

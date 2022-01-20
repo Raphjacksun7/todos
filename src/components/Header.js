@@ -5,7 +5,7 @@ import TodoTextInput from "./TodoTextInput";
 const Header = ({ addTodo }) => {
   return (
     <header className="header">
-      <h1>todos</h1>
+      <h1 style={{ top: "-100px" }}>todos</h1>
       <TodoTextInput
         newTodo
         onSave={(text) => {

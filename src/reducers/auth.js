@@ -1,6 +1,6 @@
 import * as ActionTypes from "../constants/ActionTypes";
 
-const initialState = { isLoggedIn: false, token: null };
+const initialState = { isLoggedIn: false, user: null };
 
 const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -9,18 +9,18 @@ const authReducer = (state = initialState, action) => {
     case ActionTypes.REGISTER_SUCCESS:
       return {
         ...state,
-        isLoggedIn: false,
+        isLoggedIn: true,
+        user: payload,
       };
     case ActionTypes.REGISTER_FAIL:
       return {
         ...state,
-        isLoggedIn: false,
       };
     case ActionTypes.LOGIN_SUCCESS:
       return {
         ...state,
         isLoggedIn: true,
-        token: payload,
+        user: payload,
       };
     case ActionTypes.LOGIN_FAIL:
       return {
@@ -30,7 +30,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: false,
-        token: null,
+        user: null,
       };
     default:
       return state;
