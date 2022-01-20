@@ -39,6 +39,7 @@ export default class TodoItem extends Component {
   };
 
   onCloseCommentModal = () => {
+    this.props.getTodos();
     this.setState({ openCommentModal: false });
   };
 
