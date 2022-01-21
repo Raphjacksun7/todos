@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./routes/PrivateRoute";
 import { history } from "./utils/history";
+import "todomvc-app-css/index.css";
 import "./assets/css/index.css";
-import Register from "./components/Register";
 
 const loading = <div className="pt-3 text-center">Loading...</div>;
 
@@ -12,6 +12,7 @@ const MainLayout = React.lazy(() => import("./layouts/MainLayout"));
 
 // Pages
 const Login = React.lazy(() => import("./components/Login"));
+const Register = React.lazy(() => import("./components/Register"));
 
 class App extends Component {
   render() {

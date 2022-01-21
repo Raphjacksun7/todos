@@ -2,7 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:focus,
+.toggle:focus + label,
+.toggle-all:focus + label {
+  box-shadow: 0 0 2px 2px #cf7d7d00;
+}
+
 body {
+  -webkit-font-smoothing: antialiased !important;
+  background: #f5f5f5 !important;
+  color: #333 !important;
+  font: 14px Helvetica Neue, Helvetica, Arial, sans-serif !important;
+  line-height: 1.4em !important;
   min-width: initial !important;
   max-width: initial !important;
 }
