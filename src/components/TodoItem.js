@@ -13,6 +13,7 @@ import {
   MenuDivider,
   FormControl,
   Textarea,
+  Input,
 } from "@chakra-ui/react";
 import Modal from "react-modal";
 
@@ -29,6 +30,7 @@ export default class TodoItem extends Component {
   state = {
     editing: false,
     comment: "",
+    deadline: null,
     openCommentModal: false,
     openDeadlineModal: false,
   };
@@ -45,10 +47,14 @@ export default class TodoItem extends Component {
 
   handleDeadlineModal = (e) => {
     e.preventDefault();
-    this.setState({ openDeadlineModal: true });
+    this.setState({
+      comment: this.props.todo.deadline,
+      openDeadlineModal: true,
+    });
   };
 
   onCloseDeadlineModal = () => {
+    this.props.getTodos();
     this.setState({ openDeadlineModal: false });
   };
 
@@ -94,7 +100,9 @@ export default class TodoItem extends Component {
               <DotsVerticalIcon className="h-5 w-5 text-gray-800" />
             </MenuButton>
             <MenuList>
-              <MenuItem>Set a deadline</MenuItem>
+              <MenuItem onClick={this.handleDeadlineModal}>
+                Set a deadline
+              </MenuItem>
               <MenuItem onClick={this.handleCommentModal}>Comment</MenuItem>
               <MenuItem>
                 Add a file{" "}
@@ -135,6 +143,27 @@ export default class TodoItem extends Component {
               colorScheme="gray"
             >
               Comment
+            </Button>
+          </Modal>
+          <Modal
+            isOpen={this.state.openDeadlineModal}
+            onRequestClose={this.onCloseDeadlineModal}
+          >
+            <FormControl>
+              <Input
+                type="date"
+                defaultValue={this.state.deadline}
+                onChange={(e) => this.setState({ deadline: e.target.value })}
+              />
+            </FormControl>
+            <Button
+              onClick={() =>
+                this.props.editTodo({ ...todo, deadline: this.state.deadline })
+              }
+              mt={4}
+              colorScheme="gray"
+            >
+              Set a deadline
             </Button>
           </Modal>
         </div>
